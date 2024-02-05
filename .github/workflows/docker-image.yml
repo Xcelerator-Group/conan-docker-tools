@@ -1,0 +1,19 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: modern
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build and push Docker image
+        run: |
+          docker-compose build gcc12
