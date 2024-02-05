@@ -14,6 +14,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: $ACR_LOGIN_SERVER
+          username: $ACR_USERNAME
+          password: ${{ vars.ACR_PASSWORD }}
       - name: Build and push Docker image
         run: |
-          docker-compose build gcc12
+          docker-compose build base --push
+          docker-compose build gcc12 --push
+      - name: Logout from Azure Container Registry
+        run: docker logout  $ACR_LOGIN_SERVER
