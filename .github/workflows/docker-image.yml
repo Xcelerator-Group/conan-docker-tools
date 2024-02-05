@@ -20,9 +20,13 @@ jobs:
           login-server: $ACR_LOGIN_SERVER
           username: $ACR_USERNAME
           password: ${{ secrets.ACR_PASSWORD }}
-      - name: Build and push Docker image
+      - name: Build and push base Docker image
         run: |
-          docker-compose build --push base
-          docker-compose build --push gcc12
+          docker-compose build base
+          docker-compose push base
+      - name: Build and push GCC12 Docker image
+        run: |
+          docker-compose build gcc12
+          docker-compose push gcc12
       - name: Logout from Azure Container Registry
         run: docker logout  $ACR_LOGIN_SERVER
