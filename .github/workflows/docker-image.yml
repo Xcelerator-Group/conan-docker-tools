@@ -19,7 +19,7 @@ jobs:
         with:
           login-server: $ACR_LOGIN_SERVER
           username: $ACR_USERNAME
-          password: ${{ vars.ACR_PASSWORD }}
+          password: ${{ secrets.ACR_PASSWORD }}
       - name: Build and push Docker image
         run: |
           docker-compose build base --push
