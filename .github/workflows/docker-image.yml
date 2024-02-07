@@ -32,5 +32,11 @@ jobs:
       - name: Push GCC12 Docker image
         run: |
           docker-compose push gcc12
+      - name: Build GCC12 aarch64 Docker image
+        run: |
+          docker-compose build gcc12-aarch64
+      - name: Push GCC12 aarch64 Docker image
+        run: |
+          docker-compose push gcc12-aarch64
       - name: Logout from Azure Container Registry
         run: docker logout  $ACR_LOGIN_SERVER

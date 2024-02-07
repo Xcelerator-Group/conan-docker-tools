@@ -492,6 +492,17 @@ services:
         image: ${DOCKER_USERNAME}/gcc12-${DISTRO}:${DOCKER_TAG}
         container_name: gcc12
         tty: true
+    gcc12-aarch64:
+        build:
+            context: gcc
+            dockerfile: Dockerfile.cross
+            args:
+                <<: [*common-args, *gcc12]
+                GCC_MAJOR_VERSION: 12
+                CROSS_ARCHITECTURE: aarch64
+        image: ${DOCKER_USERNAME}/gcc12-aarch64-${DISTRO}:${DOCKER_TAG}
+        container_name: gcc12-aarch64
+        tty: true
     gcc13:
         build:
             context: gcc

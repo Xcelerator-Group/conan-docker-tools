@@ -21,7 +21,7 @@ WORKDIR /root
 COPY conan.lock conanfile.txt /opt/conan/
 
 RUN apt-get -qq update \
-    && apt-get -qq install -y --no-install-recommends software-properties-common \
+    && apt-get -qq install -y --no-install-recommends software-properties-common gpg-agent \
     && add-apt-repository ppa:git-core/ppa -y \
     && apt-get -qq update \
     && apt-get -qq install -y --no-install-recommends --no-install-suggests -o=Dpkg::Use-Pty=0 \
@@ -50,6 +50,7 @@ RUN apt-get -qq update \
        liblzma-dev \
        ca-certificates \
        autoconf-archive \
+       make \
        language-pack-en \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/* \
@@ -86,7 +87,6 @@ RUN apt-get -qq update \
     && update-alternatives --install /usr/bin/pip3 pip3 /opt/pyenv/shims/pip3 100 \
     && update-alternatives --install /usr/local/bin/python python /opt/pyenv/shims/python 100 \
     && update-alternatives --install /usr/local/bin/pip pip /opt/pyenv/shims/pip 100 \
-    && ln -s /usr/share/pyshared/lsb_release.py /opt/pyenv/versions/${PYTHON_VERSION}/lib/python${PYTHON_VERSION%.*}/site-packages/lsb_release.py \
     && pip install -q --upgrade --no-cache-dir pip \
     && printf '/usr/local/lib\n' > /etc/ld.so.conf.d/20local-lib.conf \
     && printf '/usr/local/lib64\n' >> /etc/ld.so.conf.d/20local-lib.conf \
